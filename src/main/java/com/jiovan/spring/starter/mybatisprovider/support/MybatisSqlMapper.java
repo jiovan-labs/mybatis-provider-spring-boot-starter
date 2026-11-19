@@ -201,7 +201,7 @@ public class MybatisSqlMapper {
      *
      * @param sql the SQL delete statement to execute
      *
-     * @return the number of rows affected by the delete
+     * @return the number of rows affected by the deletion
      */
     public int delete(@Nonnull String sql) {
         return sqlSession.delete(statementUtils.delete(sql));
@@ -213,7 +213,7 @@ public class MybatisSqlMapper {
      * @param sql the SQL delete statement to execute
      * @param param the parameter object used to expand the dynamic SQL statement
      *
-     * @return the number of rows affected by the delete
+     * @return the number of rows affected by the deletion
      */
     public int delete(@Nonnull String sql, @Nullable Object param) {
         Class<?> parameterType = (param != null) ? param.getClass() : null;
