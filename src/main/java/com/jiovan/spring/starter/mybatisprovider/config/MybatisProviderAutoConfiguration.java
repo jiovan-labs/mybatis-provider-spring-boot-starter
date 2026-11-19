@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Unikue Ltd. All rights reserved.
+ * Copyright (c) 2020 Jiovan Ltd. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.unikue.springstarter.mybatisprovider.config;
+package com.jiovan.spring.starter.mybatisprovider.config;
 
 
 import org.apache.ibatis.mapping.DatabaseIdProvider;
@@ -26,8 +26,8 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import cn.unikue.springstarter.mybatisprovider.property.MybatisProviderProperties;
-import cn.unikue.springstarter.mybatisprovider.util.MybatisProviderUtils;
+import com.jiovan.spring.starter.mybatisprovider.property.MybatisProviderProperties;
+import com.jiovan.spring.starter.mybatisprovider.util.MybatisProviderUtils;
 import jakarta.annotation.Nonnull;
 
 
@@ -35,19 +35,27 @@ import jakarta.annotation.Nonnull;
  * Configuration for {@link org.apache.ibatis.mapping.DatabaseIdProvider}
  *
  * @author David Hsing
- * @reference "http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/"
- * @reference "http://www.mybatis.org/mybatis-3/zh/configuration.html#databaseIdProvider"
- * @reference "http://www.mybatis.org/mybatis-3/dynamic-sql.html#Multi-db vendor support"
+ * @see "http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/"
+ * @see "http://www.mybatis.org/mybatis-3/zh/configuration.html#databaseIdProvider"
+ * @see "http://www.mybatis.org/mybatis-3/dynamic-sql.html#Multi-db vendor support"
  * @see org.apache.ibatis.mapping.DatabaseIdProvider
  */
 @Configuration(proxyBeanMethods = false)
 @ConditionalOnBooleanProperty(prefix = MybatisProviderAutoConfiguration.PROPERTIES_PREFIX, name = "enabled", matchIfMissing = true)
 @ConditionalOnClass(value = SqlSession.class)
 @EnableConfigurationProperties(value = MybatisProviderProperties.class)
-@SuppressWarnings({"JavadocDeclaration", "JavadocLinkAsPlainText"})
 public class MybatisProviderAutoConfiguration {
-    public static final String PROPERTIES_PREFIX = "spring.mybatis-provider";    // $NON-NLS-1$
+    public static final String PROPERTIES_PREFIX = "jiovan.mybatis-provider";    // $NON-NLS-1$
 
+    /**
+     * Returns the vendor database id provider bean populated with properties from the configured config file
+     *
+     * @param properties the mybatis provider properties that supply the config file path for the database id mappings
+     *
+     * @return the configured database id provider bean
+     *
+     * @throws Exception if the config file cannot be read or parsed
+     */
     @Bean
     @ConditionalOnMissingBean
     public DatabaseIdProvider databaseIdProvider(@Nonnull MybatisProviderProperties properties) throws Exception {

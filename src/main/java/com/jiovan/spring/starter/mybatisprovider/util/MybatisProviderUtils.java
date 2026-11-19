@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Unikue Ltd. All rights reserved.
+ * Copyright (c) 2020 Jiovan Ltd. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cn.unikue.springstarter.mybatisprovider.util;
+package com.jiovan.spring.starter.mybatisprovider.util;
 
 
 import java.io.FileNotFoundException;
@@ -28,8 +28,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import cn.unikue.commonplexus.javaseutil.constant.StringVariantConst;
-import cn.unikue.commonplexus.springutil.util.ResourceUtilsWraps;
+import com.jiovan.plexus.common.toolkit.constant.StringVariantConst;
+import com.jiovan.plexus.spring.toolkit.util.ResourceUtilsWraps;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -41,6 +41,15 @@ import jakarta.annotation.Nullable;
  */
 @SuppressWarnings({"unused", "BooleanMethodIsAlwaysInverted", "UnusedReturnValue"})
 public abstract class MybatisProviderUtils {
+    /**
+     * Returns the provider properties parsed from the given XML config file
+     *
+     * @param configFile the path of the XML config file to read provider properties from
+     *
+     * @return the provider properties loaded from the {@code configFile}
+     *
+     * @throws Exception if the config file is blank, not readable, or cannot be parsed
+     */
     @Nonnull
     public static Properties getProviderProperties(@Nullable String configFile) throws Exception {
         if (StringUtils.isBlank(configFile)) {

@@ -6,7 +6,7 @@
  */
 
 
-package cn.unikue.springstarter.mybatisprovider.support;
+package com.jiovan.spring.starter.mybatisprovider.support;
 
 
 import java.lang.reflect.Method;
@@ -40,11 +40,20 @@ import jakarta.annotation.Nullable;
  * Mybatis SqlHelper
  *
  * @author abel533
- * @reference "https://blog.csdn.net/isea533/article/details/40044417"
- * @reference "https://blog.csdn.net/dalinsi/article/details/51919160"
+ * @see "https://blog.csdn.net/isea533/article/details/40044417"
+ * @see "https://blog.csdn.net/dalinsi/article/details/51919160"
  */
-@SuppressWarnings({"unused", "WeakerAccess", "JavadocDeclaration", "JavadocLinkAsPlainText"})
+@SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class MybatisSqlHelper {
+    /**
+     * Returns the SQL that the given mapper proxy method would execute
+     *
+     * @param mapper the MyBatis mapper proxy whose SQL is to be resolved
+     * @param methodName the name of the mapper method to resolve
+     * @param args the argument values passed to the mapper method
+     *
+     * @return the SQL of the mapper method, or {@code null} if the mapper or method name is blank
+     */
     @Nullable
     public static String getMapperSql(@Nullable Object mapper, @Nullable String methodName, @Nullable Object... args) {
         if (mapper == null || StringUtils.isBlank(methodName)) {
@@ -57,6 +66,15 @@ public abstract class MybatisSqlHelper {
         return ArrayUtils.isEmpty(args) ? getNamespaceSql(sqlSession, fullMethodName, null) : getMapperSql(sqlSession, mapperClazz, methodName, args);
     }
 
+    /**
+     * Returns the SQL of the mapper method with the given fully qualified name
+     *
+     * @param session the SQL session used to obtain the mapped statement
+     * @param fullName the fully qualified name of the mapper method, including the mapper class
+     * @param args the argument values passed to the mapper method
+     *
+     * @return the SQL of the mapper method, or {@code null} if the session or full name is blank
+     */
     @Nullable
     public static String getMapperSql(@Nullable SqlSession session, @Nullable String fullName, @Nullable Object... args) {
         if (session == null || StringUtils.isBlank(fullName)) {
@@ -74,6 +92,16 @@ public abstract class MybatisSqlHelper {
         }
     }
 
+    /**
+     * Returns the SQL of the given mapper method built with the supplied arguments
+     *
+     * @param session the SQL session used to obtain the mapped statement
+     * @param mapperClazz the mapper interface that declares the method
+     * @param methodName the name of the mapper method to resolve
+     * @param args the argument values used to expand the dynamic SQL
+     *
+     * @return the SQL of the mapper method, or {@code null} if the session, class, or method name is blank
+     */
     @Nullable
     @SuppressWarnings({"unchecked", "rawtypes", "DataFlowIssue"})
     public static String getMapperSql(@Nullable SqlSession session, @Nullable Class<?> mapperClazz, @Nullable String methodName, @Nullable Object... args) {
@@ -106,10 +134,27 @@ public abstract class MybatisSqlHelper {
         return getNamespaceSql(session, fullName, argValues);
     }
 
+    /**
+     * Returns the SQL for the given mapped statement namespace without parameters
+     *
+     * @param session the SQL session used to obtain the mapped statement
+     * @param namespace the fully qualified id of the mapped statement
+     *
+     * @return the SQL of the mapped statement, or {@code null} if the session or namespace is blank
+     */
     public static String getNamespaceSql(@Nullable SqlSession session, @Nullable String namespace) {
         return getNamespaceSql(session, namespace, null);
     }
 
+    /**
+     * Returns the SQL for the given mapped statement namespace with the supplied parameters substituted
+     *
+     * @param session the SQL session used to obtain the mapped statement
+     * @param namespace the fully qualified id of the mapped statement
+     * @param params the parameter object whose values are substituted into the SQL
+     *
+     * @return the SQL of the mapped statement, or {@code null} if the session or namespace is blank
+     */
     @Nullable
     public static String getNamespaceSql(@Nullable SqlSession session, @Nullable String namespace, @Nullable Object params) {
         if (session == null || StringUtils.isBlank(namespace)) {
