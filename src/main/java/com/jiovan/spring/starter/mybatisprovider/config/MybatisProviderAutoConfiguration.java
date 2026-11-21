@@ -35,6 +35,7 @@ import jakarta.annotation.Nonnull;
  * Configuration for {@link org.apache.ibatis.mapping.DatabaseIdProvider}
  *
  * @author David Hsing
+ *
  * @see "http://www.mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/"
  * @see "http://www.mybatis.org/mybatis-3/zh/configuration.html#databaseIdProvider"
  * @see "http://www.mybatis.org/mybatis-3/dynamic-sql.html#Multi-db vendor support"
